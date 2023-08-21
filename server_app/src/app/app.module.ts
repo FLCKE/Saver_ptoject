@@ -4,27 +4,30 @@ import { AppComponent } from './app.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 
-import { UploadComponent } from './upload/upload.component';
+import { homeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { ApiserviceService } from './apiservice.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     InscriptionComponent,
     ConnexionComponent,
-    UploadComponent,
+    homeComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      { path: 'home', component: UploadComponent },
-      { path: 'connexion', component: ConnexionComponent },
+      { path: 'home', component: homeComponent },
+      { path: 'login', component: ConnexionComponent },
       { path: 'subcribe', component: InscriptionComponent },
       { path: '', redirectTo: 'home', pathMatch:'full'},
 
-    ])
+    ]),
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [ApiserviceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
