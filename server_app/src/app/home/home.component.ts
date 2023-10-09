@@ -1,7 +1,7 @@
 import { Component,OnInit } from "@angular/core";
 
 @Component({
-    selector:'app-upload',
+    selector:'app-home',
     templateUrl:'./home.component.html',
 })
 export class homeComponent implements OnInit{
@@ -13,6 +13,8 @@ export class homeComponent implements OnInit{
         const data=localStorage.getItem('AuthUser');
         if(data){
             this.userData=JSON.parse(data);
+            console.log(data);
+            
         }
     }
     ngOnInit(): void {

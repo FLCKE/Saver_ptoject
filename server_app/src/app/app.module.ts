@@ -3,31 +3,44 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { ConnexionComponent } from './connexion/connexion.component';
-
+import { UploadComponent } from './upload/upload.component';
 import { homeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiserviceService } from './apiservice.service';
-
+import { DataapiService } from './shared/dataapiservice/dataapi.service';
+// import { AngularFireModule} from 'angularfire2';
+// import {AngularFireStorageModule} from 'angularfire2/storage';
 @NgModule({
   declarations: [
     AppComponent,
     InscriptionComponent,
     ConnexionComponent,
     homeComponent,
+    UploadComponent,
+    // PdfviewerComponent,
   ],
   imports: [
     BrowserModule,
+    // NgxExtendedPdfViewerModule,
     RouterModule.forRoot([
       { path: 'home', component: homeComponent },
       { path: 'login', component: ConnexionComponent },
       { path: 'subcribe', component: InscriptionComponent },
-      { path: '', redirectTo: 'home', pathMatch:'full'},
-
+      { path: 'upload', component: UploadComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
     ]),
     HttpClientModule,
+    // AngularFireModule.initializeApp({
+    //   apiKey: "AIzaSyAuCJLoKxAeDkm77LCbC9yfauz61YWS58c",
+    //   authDomain: "saver-576fc.firebaseapp.com",
+    //   projectId: "saver-576fc",
+    //   storageBucket: "saver-576fc.appspot.com",
+    // }),
+    // AngularFireStorageModule,
   ],
-  providers: [ApiserviceService],
-  bootstrap: [AppComponent]
+  providers: [ApiserviceService,DataapiService],
+  bootstrap: [AppComponent],
+  
 })
 export class AppModule { }

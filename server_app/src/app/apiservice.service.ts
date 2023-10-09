@@ -9,9 +9,9 @@ import { AppUser } from './models/user.models';
 export class ApiserviceService {
 
   constructor(private _http: HttpClient) { }
-  public apiUrl!:string;
+  public apiUrl!: string;
   getAllData(): Observable<any> {
-    this.apiUrl = 'http://localhost:3000/users';
+    this.apiUrl = 'http://localhost:3306/users';
     return this._http.get(`${this.apiUrl}`)
   }
   getUser(link: string): Observable<any> {
@@ -19,11 +19,17 @@ export class ApiserviceService {
     return this._http.get(`${link}`);
   }
   // public 
-  addUser( newUser:any):Observable<any>{
-    this.apiUrl = 'http://localhost:3000/add-user';
-    return this._http.post(this.apiUrl,newUser);
+  addUser(newUser: any): Observable<any> {
+    this.apiUrl = 'http://localhost:3306/add-user';
+    return this._http.post(this.apiUrl, newUser);
   }
-  logout(){
+  logout() {
     localStorage.removeItem("AuthUser");
+  }
+  /**
+   * addfile
+   */
+  public addfile(NewFile: any) {
+
   }
 }

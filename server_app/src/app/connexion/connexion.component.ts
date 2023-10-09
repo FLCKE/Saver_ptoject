@@ -15,7 +15,7 @@ export class ConnexionComponent {
     public errorMessage!: string;
     public user!: AppUser;
     public userAuthentificate!: boolean;
-    constructor(private transitionService: TransitionService, private apiservice: ApiserviceService , private router:Router) {
+    constructor(private transitionService: TransitionService, private apiservice: ApiserviceService, private router: Router) {
         this.connexionActive = transitionService.connexionStatus;
     }
 
@@ -43,7 +43,7 @@ export class ConnexionComponent {
         let email: HTMLInputElement = document.getElementById('email') as HTMLInputElement;
         let password: HTMLInputElement = document.getElementById('password') as HTMLInputElement;
         console.log(email.value, password.value);
-        let loginUrl = "http://localhost:3000/login" + "?email=" + email.value + "&password=" + password.value;
+        let loginUrl = "http://localhost:3306/login" + "?email=" + email.value + "&password=" + password.value;
         this.apiservice.getUser(loginUrl).subscribe({
             next: (result) => {
                 console.log("succeeeeed");
@@ -52,8 +52,9 @@ export class ConnexionComponent {
                 this.router.navigateByUrl("/home");
             },
             error: (Error) => {
+                console.log(Error);
             }
-            
+
         });
         if (!this.userAuthentificate) {
             this.errorMessage = "Password or email incorrect";
@@ -62,6 +63,6 @@ export class ConnexionComponent {
     }
     public authentificateUser() {
         this.userAuthentificate = true;
-        localStorage.setItem("AuthUser", JSON.stringify({ firstname: this.user.name, lastname: this.user.lastname }));
+        localStorage.setItem("AuthUser", JSON.stringify({ firstname: this.user.firstname, lastname: this.user.lastname }));
     }
 }

@@ -9,26 +9,36 @@ const app = express();
 app.use(cors());
 app.use(bodyparser.json());
 // connecter ma base de donnée
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'saverdb',
-    port: '3306',
-})
-db.connect(err => {
-    if (!err) {
-        console.log("connexion reussite");
-    } else {
-        console.log(err);
-    }
-})
+// const db = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: '',
+//     database: 'saverdb',
+//     port: '3306',
+// })
+// db.connect(err => {
+//     if (!err) {
+//         console.log("connexion reussite");
+//     } else {
+//         console.log(err);
+//     }
+// })
+const sqlite3 = require('sqlite3').verbose();
 
-app.listen(3000, () => {
-    console.log("serve running to http://localhost:3000")
+// Ouvrir une connexion à la base de données (ou créer un nouveau fichier si la base de données n'existe pas)
+const db = new sqlite3.Database('data.db', (err) => {
+    if (err) {
+        console.error('Erreur lors de l\'ouverture de la base de données', err.message);
+    } else {
+        console.log('Connexion à la base de données réussie');
+    }
+});
+
+app.listen(3306, () => {
+    console.log("serve running to http://localhost:3306")
 })
 app.get('/users', (req, resp) => {
-    let requete = 'SELECT * FROM `users` WHERE 1';
+    let requete = 'SELECT * FROM `user` WHERE 1';
     db.query(requete, (err, result) => {
         if (err) {
             console.log(err);
@@ -50,14 +60,15 @@ app.get('/login', (req, resp) => {
     let email = req.query.email;
     console.log(email);
     let password = req.query.password;
-    let requete = "SELECT * from `users` WHERE  `email`= '" + email + "' and `password`= '" + password + "'";
-    db.query(requete, (err, result) => {
+    let requete = "SELECT * from `user` WHERE  `email`= '" + email + "' and `password`= '" + password + "'";
+    
+    db.each(requete, (err, result) => {
         if (err) {
             console.log(err);
             return err;
         } else {
-            console.log(result.data);
-            if (result.length > 0) {
+            console.log(result);
+            if (result.length != 0) {
                 resp.send(
                     {
                         message: 'user ',
@@ -74,8 +85,8 @@ app.get('/login', (req, resp) => {
 })
 app.post('/add-user', (req, res) => {
     const data = req.body;
-    let requete = " INSERT INTO`users`( `name`, `lastname`, `email`, `password`) VALUES('" + data.firstname + "', '" + data.lastname + "', '" + data.email + "', '" + data.password +"')";
-    db.query(requete, (err, result) => {
+    let requete = " INSERT INTO`user`( `firstname`, `lastname`, `email`, `password`) VALUES('" + data.firstname + "', '" + data.lastname + "', '" + data.email + "', '" + data.password +"')";
+    db.run(requete, (err, result) => {
         if (err) {
             console.log(err);
         } else {

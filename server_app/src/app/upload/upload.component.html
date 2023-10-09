@@ -1,0 +1,19 @@
+<div class="  d-flex vw-100 vh-100">
+
+    <div class=" m-auto p-5 shadow-sm rounded-3" style="background-color: #D9D9D9;">
+        <form action="" method="get" class=" ">
+            <input type="text" placeholder="Name" id="name" class="d-block my-2 w-100 form-control">
+            <select name="category" id="category" class="d-block my-2  w-100 form-select" aria-label="Category">
+                <option value="">Category :</option>
+                <option value="Diplome">Diplome</option>
+                <option value="Carte">Carte</option>
+                <option value="Contrat">Contrat</option>
+            </select>
+            <input type="file" name="fileupload" id="fileUpload" class="d-block my-2  w-100 form-control" required>
+            <div class="d-flex pt-4">
+                <button type="button" (click)="uploadFile()" class="mx-auto btn btn-dark w-50">Valider</button>
+            </div>
+        </form>
+        
+    </div>
+</div>
