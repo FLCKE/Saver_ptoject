@@ -61,7 +61,7 @@ app.get('/login', (req, resp) => {
     console.log(email);
     let password = req.query.password;
     let requete = "SELECT * from `user` WHERE  `email`= '" + email + "' and `password`= '" + password + "'";
-    
+
     db.each(requete, (err, result) => {
         if (err) {
             console.log(err);
@@ -85,7 +85,19 @@ app.get('/login', (req, resp) => {
 })
 app.post('/add-user', (req, res) => {
     const data = req.body;
-    let requete = " INSERT INTO`user`( `firstname`, `lastname`, `email`, `password`) VALUES('" + data.firstname + "', '" + data.lastname + "', '" + data.email + "', '" + data.password +"')";
+    let requete = " INSERT INTO`user`( `firstname`, `lastname`, `email`, `password`) VALUES('" + data.firstname + "', '" + data.lastname + "', '" + data.email + "', '" + data.password + "')";
+    db.run(requete, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.status(201).json({ message: "reussir" });
+        }
+    });
+})
+app.post('/add-file', (req, res) => {
+    const data = req.body;
+    console.log("toppppppppp");
+    let requete = " INSERT INTO `files`( `name_file`, `categories`, `filePath`, `user_id`) VALUES('" + data.fileName + "', '" + data.fileCategory + "', '" + data.filePath + "', '" + data.userId + "')";
     db.run(requete, (err, result) => {
         if (err) {
             console.log(err);

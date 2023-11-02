@@ -9,8 +9,8 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiserviceService } from './apiservice.service';
 import { DataapiService } from './shared/dataapiservice/dataapi.service';
-// import { AngularFireModule} from 'angularfire2';
-// import {AngularFireStorageModule} from 'angularfire2/storage';
+import { FirebaseDataService } from './shared/firebase-data.service';
+// import { AppRoutingModule } from './app.routerModule';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,8 +21,6 @@ import { DataapiService } from './shared/dataapiservice/dataapi.service';
     // PdfviewerComponent,
   ],
   imports: [
-    BrowserModule,
-    // NgxExtendedPdfViewerModule,
     RouterModule.forRoot([
       { path: 'home', component: homeComponent },
       { path: 'login', component: ConnexionComponent },
@@ -30,16 +28,19 @@ import { DataapiService } from './shared/dataapiservice/dataapi.service';
       { path: 'upload', component: UploadComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ]),
-    HttpClientModule,
+    // AppRoutingModule,
+    BrowserModule,
+    // NgxExtendedPdfViewerModule,
     // AngularFireModule.initializeApp({
     //   apiKey: "AIzaSyAuCJLoKxAeDkm77LCbC9yfauz61YWS58c",
     //   authDomain: "saver-576fc.firebaseapp.com",
     //   projectId: "saver-576fc",
     //   storageBucket: "saver-576fc.appspot.com",
     // }),
+    HttpClientModule,
     // AngularFireStorageModule,
   ],
-  providers: [ApiserviceService,DataapiService],
+  providers: [ApiserviceService,DataapiService,FirebaseDataService],
   bootstrap: [AppComponent],
   
 })

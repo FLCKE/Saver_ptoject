@@ -29,7 +29,8 @@ export class ApiserviceService {
   /**
    * addfile
    */
-  public addfile(NewFile: any) {
-
+  addFile(newFile:any): Observable<any> {
+    this.apiUrl = 'http://localhost:3306/add-file';
+    return this._http.post(this.apiUrl, newFile);
   }
 }

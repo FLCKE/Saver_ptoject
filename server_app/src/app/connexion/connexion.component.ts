@@ -46,9 +46,9 @@ export class ConnexionComponent {
         let loginUrl = "http://localhost:3306/login" + "?email=" + email.value + "&password=" + password.value;
         this.apiservice.getUser(loginUrl).subscribe({
             next: (result) => {
-                console.log("succeeeeed");
-                this.user = result.data[0];
-                this.authentificateUser();
+                console.log("succeeeeed !!! data reclaim ");
+                this.user = result.data;// affecter les information recuperer a mon user 
+                this.authentificateUser();// authentifier l'user et enregistrer ses informations dans le storage local
                 this.router.navigateByUrl("/home");
             },
             error: (Error) => {
@@ -63,6 +63,6 @@ export class ConnexionComponent {
     }
     public authentificateUser() {
         this.userAuthentificate = true;
-        localStorage.setItem("AuthUser", JSON.stringify({ firstname: this.user.firstname, lastname: this.user.lastname }));
+        localStorage.setItem("AuthUser", JSON.stringify({ userId:this.user.id, firstname: this.user.firstname, lastname: this.user.lastname }));
     }
 }
