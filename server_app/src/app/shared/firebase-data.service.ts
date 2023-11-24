@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,6 +24,9 @@ export class FirebaseDataService {
     });
     return storageRef.fullPath;
 
+  }
+  public recup_file(fileName:string){
+    return getDownloadURL(ref(this.storage,fileName));
   }
 }
 

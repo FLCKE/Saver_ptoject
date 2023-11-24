@@ -33,4 +33,9 @@ export class ApiserviceService {
     this.apiUrl = 'http://localhost:3306/add-file';
     return this._http.post(this.apiUrl, newFile);
   }
+  selectFile(user_id:any):Observable<any>{
+   let link = 'http://localhost:3306/select-file?user_id='+user_id;
+    console.log(user_id);
+    return this._http.get(link);
+  }
 }

@@ -64,5 +64,6 @@ export class ConnexionComponent {
     public authentificateUser() {
         this.userAuthentificate = true;
         localStorage.setItem("AuthUser", JSON.stringify({ userId:this.user.id, firstname: this.user.firstname, lastname: this.user.lastname }));
+        
     }
 }

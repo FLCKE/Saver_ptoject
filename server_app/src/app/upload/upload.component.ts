@@ -41,8 +41,7 @@ export class UploadComponent {
                 }
                 this.dbApi.addFile(newFile).subscribe({
                     next: (result) => {
-                        
-                        this.router.navigateByUrl("/home");
+                        this.router.navigateByUrl("/files");
                     }
                 });
                 console.log(newFile);

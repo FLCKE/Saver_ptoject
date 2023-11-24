@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiserviceService } from './apiservice.service';
 import { DataapiService } from './shared/dataapiservice/dataapi.service';
 import { FirebaseDataService } from './shared/firebase-data.service';
+import { FileComponent } from './file/file.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { AppRoutingModule } from './app.routerModule';
 @NgModule({
   declarations: [
@@ -18,6 +20,7 @@ import { FirebaseDataService } from './shared/firebase-data.service';
     ConnexionComponent,
     homeComponent,
     UploadComponent,
+    FileComponent,
     // PdfviewerComponent,
   ],
   imports: [
@@ -26,6 +29,7 @@ import { FirebaseDataService } from './shared/firebase-data.service';
       { path: 'login', component: ConnexionComponent },
       { path: 'subcribe', component: InscriptionComponent },
       { path: 'upload', component: UploadComponent },
+      { path: 'files', component: FileComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ]),
     // AppRoutingModule,
@@ -38,9 +42,10 @@ import { FirebaseDataService } from './shared/firebase-data.service';
     //   storageBucket: "saver-576fc.appspot.com",
     // }),
     HttpClientModule,
+    NgbModule,
     // AngularFireStorageModule,
   ],
-  providers: [ApiserviceService,DataapiService,FirebaseDataService],
+  providers: [ApiserviceService, DataapiService, FirebaseDataService],
   bootstrap: [AppComponent],
   
 })

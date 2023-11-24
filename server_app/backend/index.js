@@ -106,3 +106,37 @@ app.post('/add-file', (req, res) => {
         }
     });
 })
+app.get('/select-file', (req, res) => {
+    let user_id = req.query.user_id;
+    console.log(user_id);
+    let requete = 'SELECT * FROM `files` WHERE `user_id`='+user_id ;
+
+    db.all(requete, (err, result) => {// utiliser le all pour recuperer beaucoup d'info a la fois 
+        if (err) {
+            console.log(err);
+            return err;
+        } else {
+            // console.log(result.length);
+            if (result.length != 0) {
+                console.log(result);
+                res.send(
+                    {
+                        message: "yours files",
+                        data: result,
+                    }
+                )
+                return true;
+            } else {
+                res.send(
+                    {
+                        message: "you haven't data",
+                        data: result,
+                    }
+                )
+                return false;
+            }
+        }
+
+    }
+    )
+})
