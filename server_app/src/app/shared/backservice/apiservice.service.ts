@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { AppUser } from './models/user.models';
+import { AppUser } from '../../models/user.models';
 
 @Injectable({
   providedIn: 'root'
@@ -29,12 +29,12 @@ export class ApiserviceService {
   /**
    * addfile
    */
-  addFile(newFile:any): Observable<any> {
+  addFile(newFile: any): Observable<any> {
     this.apiUrl = 'http://localhost:3306/add-file';
     return this._http.post(this.apiUrl, newFile);
   }
-  selectFile(user_id:any):Observable<any>{
-   let link = 'http://localhost:3306/select-file?user_id='+user_id;
+  selectFile(user_id: any): Observable<any> {
+    let link = 'http://localhost:3306/select-file?user_id=' + user_id;
     console.log(user_id);
     return this._http.get(link);
   }

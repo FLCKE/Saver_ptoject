@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TransitionService } from '../shared/transitionservice/transition.service';
-import { ApiserviceService } from '../apiservice.service';
+import { ApiserviceService } from '../shared/backservice/apiservice.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class InscriptionComponent {
   title = 'server_app';
   public inscriptionActive: boolean;
-  constructor(private transitionService: TransitionService, private apiservice: ApiserviceService,private router:Router) {
+  constructor(private transitionService: TransitionService, private apiservice: ApiserviceService, private router: Router) {
     this.inscriptionActive = transitionService.inscriptionStatus;
   }
   public change(): void {
@@ -39,7 +39,7 @@ export class InscriptionComponent {
         this.router.navigateByUrl('/login');
       },
       error: (err) => {
-        
+
       }
     })
   }

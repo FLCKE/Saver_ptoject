@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiserviceService } from '../apiservice.service';
+import { ApiserviceService } from '../shared/backservice/apiservice.service';
 import { FileUser } from '../models/file.models';
-import { FirebaseDataService } from '../shared/firebase-data.service';
+import { FirebaseDataService } from '../shared/firebase/firebase-data.service';
 @Component({
   selector: 'app-file',
   templateUrl: './file.component.html',
@@ -9,7 +9,7 @@ import { FirebaseDataService } from '../shared/firebase-data.service';
 })
 export class FileComponent implements OnInit {
   files: FileUser[];
-  constructor(private api: ApiserviceService,private fileApi:FirebaseDataService) {
+  constructor(private api: ApiserviceService, private fileApi: FirebaseDataService) {
     this.files = [];
   }
 
@@ -22,17 +22,17 @@ export class FileComponent implements OnInit {
     let userId = JSON.parse(localStorage.getItem('AuthUser')!).userId;
     this.api.selectFile(userId).subscribe({
       next: (result) => {
-        this.files=result.data;
+        this.files = result.data;
         console.log(this.files[3]);
-       }
+      }
     })
 
   }
-  public display_file(filePath:string){
+  public display_file(filePath: string) {
     console.log(filePath);
-    this.fileApi.recup_file(filePath).then((url)=>{
-      window.open(url,"Document");
-    }).catch((error)=>{
+    this.fileApi.recup_file(filePath).then((url) => {
+      window.open(url, "Document");
+    }).catch((error) => {
       console.log(error);
     })
   }

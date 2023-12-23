@@ -7,11 +7,13 @@ import { UploadComponent } from './upload/upload.component';
 import { homeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { ApiserviceService } from './apiservice.service';
+import { ApiserviceService } from './shared/backservice/apiservice.service';
 import { DataapiService } from './shared/dataapiservice/dataapi.service';
-import { FirebaseDataService } from './shared/firebase-data.service';
+import { FirebaseDataService } from './shared/firebase/firebase-data.service';
 import { FileComponent } from './file/file.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProfilComponent } from './profil/profil.component';
+import { ChargerouteGuard } from './shared/guardroute/chargeroute.guard';
 // import { AppRoutingModule } from './app.routerModule';
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     homeComponent,
     UploadComponent,
     FileComponent,
+    ProfilComponent,
     // PdfviewerComponent,
   ],
   imports: [
@@ -28,25 +31,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       { path: 'home', component: homeComponent },
       { path: 'login', component: ConnexionComponent },
       { path: 'subcribe', component: InscriptionComponent },
-      { path: 'upload', component: UploadComponent },
-      { path: 'files', component: FileComponent },
+      { path: 'upload', component: UploadComponent, canActivate: [ChargerouteGuard] },
+      { path: 'files', component: FileComponent, canActivate: [ChargerouteGuard] },
+      { path: 'profil', component: ProfilComponent, canActivate: [ChargerouteGuard] },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ]),
-    // AppRoutingModule,
     BrowserModule,
-    // NgxExtendedPdfViewerModule,
-    // AngularFireModule.initializeApp({
-    //   apiKey: "AIzaSyAuCJLoKxAeDkm77LCbC9yfauz61YWS58c",
-    //   authDomain: "saver-576fc.firebaseapp.com",
-    //   projectId: "saver-576fc",
-    //   storageBucket: "saver-576fc.appspot.com",
-    // }),
     HttpClientModule,
     NgbModule,
-    // AngularFireStorageModule,
   ],
   providers: [ApiserviceService, DataapiService, FirebaseDataService],
   bootstrap: [AppComponent],
-  
+
 })
 export class AppModule { }

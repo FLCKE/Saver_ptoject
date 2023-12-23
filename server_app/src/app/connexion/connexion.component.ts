@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { TransitionService } from "../shared/transitionservice/transition.service";
-import { ApiserviceService } from "../apiservice.service";
+import { ApiserviceService } from "../shared/backservice/apiservice.service";
 import { AppUser } from "../models/user.models";
 import { Router } from "@angular/router";
 
@@ -63,7 +63,7 @@ export class ConnexionComponent {
     }
     public authentificateUser() {
         this.userAuthentificate = true;
-        localStorage.setItem("AuthUser", JSON.stringify({ userId:this.user.id, firstname: this.user.firstname, lastname: this.user.lastname }));
-        
+        localStorage.setItem("AuthUser", JSON.stringify({ userId: this.user.id, firstname: this.user.firstname, lastname: this.user.lastname }));
+
     }
 }

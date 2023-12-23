@@ -3,8 +3,8 @@ import { DataapiService } from "../shared/dataapiservice/dataapi.service";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { initializeApp } from 'firebase/app';
 import { getStorage, ref, uploadBytes } from 'firebase/storage';
-import { FirebaseDataService } from "../shared/firebase-data.service";
-import { ApiserviceService } from "../apiservice.service";
+import { FirebaseDataService } from "../shared/firebase/firebase-data.service";
+import { ApiserviceService } from "../shared/backservice/apiservice.service";
 import { Router } from "@angular/router";
 
 
