@@ -2,6 +2,7 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const cors = require('cors');
 const mysql = require('mysql2');
+const bcrypt = require("bcrypt");
 const { throwError } = require('rxjs');
 
 const app = express();
@@ -60,7 +61,7 @@ app.get('/login', (req, resp) => {
     let email = req.query.email;
     console.log(email);
     let password = req.query.password;
-    let requete = "SELECT * from `user` WHERE  `email`= '" + email + "' and `password`= '" + password + "'";
+    let requete = "SELECT * from `user` WHERE  `email`= '" + email + "'";
 
     db.each(requete, (err, result) => {
         if (err) {
@@ -69,13 +70,18 @@ app.get('/login', (req, resp) => {
         } else {
             console.log(result);
             if (result.length != 0) {
-                resp.send(
-                    {
-                        message: 'user ',
-                        data: result,
+                checkPassword(password, result.password).then((chechResult) => {
+                    if (chechResult) {
+
+                        resp.send(
+                            {
+                                message: 'user ',
+                                data: result,
+                            }
+                        )
+                        console.log("data reclaim");
                     }
-                )
-                console.log("data reclaim");
+                })
             } else {
                 console.log("introuver");
                 return err = new Error("pas trouver");
@@ -85,14 +91,18 @@ app.get('/login', (req, resp) => {
 })
 app.post('/add-user', (req, res) => {
     const data = req.body;
-    let requete = " INSERT INTO`user`( `firstname`, `lastname`, `email`, `password`) VALUES('" + data.firstname + "', '" + data.lastname + "', '" + data.email + "', '" + data.password + "')";
-    db.run(requete, (err, result) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.status(201).json({ message: "reussir" });
-        }
-    });
+    hashPassword(data.password).then((hashed) => {
+
+        let requete = " INSERT INTO`user`( `firstname`, `lastname`, `email`, `password`) VALUES('" + data.firstname + "', '" + data.lastname + "', '" + data.email + "', '" + hashed + "')";
+        db.run(requete, (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.status(201).json({ message: "reussir" });
+            }
+        });
+    })
+
 })
 app.post('/add-file', (req, res) => {
     const data = req.body;
@@ -109,7 +119,7 @@ app.post('/add-file', (req, res) => {
 app.get('/select-file', (req, res) => {
     let user_id = req.query.user_id;
     console.log(user_id);
-    let requete = 'SELECT * FROM `files` WHERE `user_id`='+user_id ;
+    let requete = 'SELECT * FROM `files` WHERE `user_id`=' + user_id;
 
     db.all(requete, (err, result) => {// utiliser le all pour recuperer beaucoup d'info a la fois 
         if (err) {
@@ -140,3 +150,11 @@ app.get('/select-file', (req, res) => {
     }
     )
 })
+async function hashPassword(password) {
+    var hashed = await bcrypt.hash(password, 10);
+    return hashed;
+}
+async function checkPassword(password, hashed) {
+    var result = await bcrypt.compare(password, hashed);
+    return result;
+}
