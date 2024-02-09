@@ -56,6 +56,24 @@ app.get('/users', (req, resp) => {
         }
     })
 })
+app.get('/user-by-id', (req, resp) => {
+    let requete = "SELECT * FROM `user` WHERE id=" + req.query.userId;
+    db.each(requete, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            if (result.length != 0) {
+                resp.send(
+                    {
+                        message: 'user',
+                        data: result,
+                    }
+                )
+                console.log("data reclaim");
+            }
+        }
+    })
+})
 app.get('/login', (req, resp) => {
     console.log('fffffffffffffffffffffffffffffff');
     let email = req.query.email;

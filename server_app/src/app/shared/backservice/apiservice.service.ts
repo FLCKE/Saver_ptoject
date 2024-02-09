@@ -15,7 +15,9 @@ export class ApiserviceService {
     return this._http.get(`${this.apiUrl}`)
   }
   getUser(link: string): Observable<any> {
-    console.log("lancer")
+    return this._http.get(`${link}`);
+  }
+  getUserById(link: string): Observable<any> {
     return this._http.get(`${link}`);
   }
   // public 
